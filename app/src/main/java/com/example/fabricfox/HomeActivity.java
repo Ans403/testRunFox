@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity implements OnNavigationItemS
             }
         });
 
-        
+
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -90,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements OnNavigationItemS
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
 
         userNameTextView.setText(Prevalent.currentOnlineUser.getName());
+        Picasso.get().load(Prevalent.currentOnlineUser.getImage()).placeholder(R.drawable.profile).into(profileImageView);
 
             recyclerView = findViewById(R.id.recycler_menu);
             recyclerView.setHasFixedSize(true);
