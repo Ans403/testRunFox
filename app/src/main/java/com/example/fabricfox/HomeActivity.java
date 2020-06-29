@@ -67,9 +67,13 @@ public class HomeActivity extends AppCompatActivity implements OnNavigationItemS
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View view)
+            {
+
+                Intent intent = new Intent(HomeActivity.this, CartActivity.class);
+
+                startActivity(intent);
+
             }
         });
 
@@ -130,12 +134,22 @@ public class HomeActivity extends AppCompatActivity implements OnNavigationItemS
                     }
 
                     @Override
-                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull Products model)
+                    protected void onBindViewHolder(@NonNull ProductViewHolder holder, int position, @NonNull final Products model)
                     {
                         holder.txtProductName.setText(model.getPname());
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = " + model.getPrice() + "$");
                         Picasso.get().load(model.getImage()).into(holder.imageView);
+
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent intent = new Intent(HomeActivity.this, ProductDetailsActivity.class);
+                                intent.putExtra( "pid", model.getPid());
+                                startActivity(intent);
+                            }
+                        });
                     }
 
                 };
@@ -193,18 +207,29 @@ public class HomeActivity extends AppCompatActivity implements OnNavigationItemS
         public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
 
-        if (id == R.id.nav_cart) {
+        if (id == R.id.nav_cart)
+        {
 
-        } else if (id == R.id.nav_orders) {
+        }
+        else if (id == R.id.nav_orders)
+        {
+            Intent intent = new Intent(HomeActivity.this, CartActivity.class);
 
-        } else if (id == R.id.nav_categories) {
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_categories)
+        {
 
-        } else if (id == R.id.nav_settings) {
+        }
+        else if (id == R.id.nav_settings)
+        {
 
             Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_logout) {
+        }
+        else if (id == R.id.nav_logout)
+        {
             Paper.book().destroy();
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
