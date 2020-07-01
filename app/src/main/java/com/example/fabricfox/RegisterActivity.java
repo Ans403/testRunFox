@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private Button CreateAccountBtn;
+    private Button CreateAccountButton;
     private EditText InputName, InputPhoneNumber, InputPassword;
     private ProgressDialog loadingBar;
 
@@ -34,13 +34,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        CreateAccountBtn = (Button) findViewById(R.id.register_btn);
+        CreateAccountButton = (Button) findViewById(R.id.register_btn);
         InputName = (EditText) findViewById(R.id.register_username_input);
         InputPhoneNumber = (EditText) findViewById(R.id.register_phone_number_input);
         InputPassword = (EditText) findViewById(R.id.register_password_input);
         loadingBar = new ProgressDialog(this);
 
-        CreateAccountBtn.setOnClickListener(new View.OnClickListener() {
+        CreateAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateAccount();

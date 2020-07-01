@@ -35,6 +35,7 @@ public class CartActivity extends AppCompatActivity
     private Button NextProcessBtn;
     private TextView txtTotalAmount;
 
+    private int overTotalPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -51,11 +52,25 @@ public class CartActivity extends AppCompatActivity
 
         txtTotalAmount = (TextView) findViewById(R.id.total_price);
 
+        NextProcessBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtTotalAmount.setText("Total Price = $" + String.valueOf(overTotalPrice));
+
+                Intent intent = new Intent(CartActivity.this, ConfirmFinalOderActivity.class);
+                intent.putExtra("Total Price", String.valueOf(overTotalPrice));
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     @Override
     protected void onStart()
     {
+
+        txtTotalAmount.setText("Total Price = $" + String.valueOf(overTotalPrice));
         super.onStart();
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
@@ -72,6 +87,9 @@ public class CartActivity extends AppCompatActivity
                 holder.txtProductName.setText("Name = " + model.getPname());
                 holder.txtProductPrice.setText("Price = " + model.getPrice() + "$");
                 holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
+
+                int oneTyprProductTPrice = ((Integer.valueOf(model.getPrice()))) * Integer.valueOf(model.getQuantity());
+                overTotalPrice = overTotalPrice + oneTyprProductTPrice;
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
